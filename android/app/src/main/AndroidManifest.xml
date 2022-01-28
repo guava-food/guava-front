@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.guava_frontend">
    <application
-        android:label="guava_frontend"
+        android:label="Guava"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
