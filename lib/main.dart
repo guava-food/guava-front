@@ -9,9 +9,15 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Guava App',
       theme: ThemeData(primarySwatch: Colors.yellow),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      initialRoute: '/',
+      routes: {
+        // When navigating to the "/" route, build the FirstScreen widget.
+        '/': (context) => const MyHomePage(title: 'Flutter Demo Home Page')
+        // When navigating to the "/second" route, build the SecondScreen widget.
+        //'/second': (context) => const SecondScreen(),
+      },
     );
   }
 }
@@ -49,7 +55,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     fontWeight: FontWeight.w100)),
             Text(
               '$_counter',
-              style: TextStyle(
+              style: const TextStyle(
                   fontFamily: 'Helvetica Neue',
                   fontSize: 36,
                   fontWeight: FontWeight.w100),
