@@ -38,6 +38,11 @@ class _MyHomePageState extends State<MyHomePage> {
               const Image(
                 image: NetworkImage('https://i.imgur.com/Xr5Qp7j.png'),
               ),
+              const Text(
+                'Guava',
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 24, color: Colors.black54),
+              ),
               TextFormField(
                 decoration: const InputDecoration(
                   labelText: 'Username',
