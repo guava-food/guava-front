@@ -1,19 +1,24 @@
 import 'package:flutter/material.dart';
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
+class LocationPage extends StatefulWidget {
+  const LocationPage({Key? key, required this.title}) : super(key: key);
 
   final String title;
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<LocationPage> createState() => _LocationPageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _LocationPageState extends State<LocationPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(),
+      appBar: AppBar(
+        title: const Text('Welcome to Flutter'),
+      ),
+      body: const Center(
+        child: Text('Hello World'),
+      ),
     );
   }
 }

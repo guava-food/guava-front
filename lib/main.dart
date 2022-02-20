@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'location.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,7 +12,17 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Guava',
       theme: ThemeData(primarySwatch: Colors.grey),
-      home: const MyHomePage(title: 'Guava Login'),
+      initialRoute: '/',
+      routes: {
+        // When navigating to the "/" route, build the FirstScreen widget.
+        '/': (BuildContext context) => const MyHomePage(
+              title: "Login",
+            ),
+        // When navigating to the "/second" route, build the SecondScreen widget.
+        '/location': (BuildContext context) => const LocationPage(
+              title: "Location",
+            ),
+      },
     );
   }
 }
@@ -26,8 +37,15 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  bool _obscureText = true;
   @override
   Widget build(BuildContext context) {
+    void _toggle() {
+      setState(() {
+        _obscureText = !_obscureText;
+      });
+    }
+
     return Scaffold(
       body: Center(
         child: Padding(
@@ -44,6 +62,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 style: TextStyle(fontSize: 24, color: Colors.black54),
               ),
               TextFormField(
+                autocorrect: false,
                 decoration: const InputDecoration(
                   labelText: 'Username',
                 ),
@@ -55,8 +74,17 @@ class _MyHomePageState extends State<MyHomePage> {
                 },
               ),
               TextFormField(
-                decoration: const InputDecoration(
+                autocorrect: false,
+                obscureText: _obscureText,
+                decoration: InputDecoration(
                   labelText: 'Password',
+                  suffixIcon: IconButton(
+                    onPressed: _toggle,
+                    icon: Icon(
+                      _obscureText ? Icons.visibility : Icons.visibility_off,
+                      size: 24.0,
+                    ),
+                  ),
                 ),
                 validator: (String? value) {
                   if (value == null || value.isEmpty) {
@@ -73,7 +101,9 @@ class _MyHomePageState extends State<MyHomePage> {
                     width: 200.0,
                     height: 30.0,
                     child: OutlinedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/location');
+                      },
                       child: const Text('Login'),
                     ),
                   ),
