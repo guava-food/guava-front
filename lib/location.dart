@@ -1,5 +1,4 @@
-import 'dart:ffi';
-
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 
@@ -71,33 +70,50 @@ class _LocationPageState extends State<LocationPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-          child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Text(
-            'Allow your location',
-            style: TextStyle(fontSize: 24),
-          ),
-          Text('We will need your location to find restaurants near you.'),
-          OutlinedButton(
-            onPressed: () {
-              //_determinePosition();
-            },
-            child: const Text('Allow location'),
-          ),
-          OutlinedButton(
-            onPressed: () {},
-            child: const Text('Skip'),
-          ),
-          OutlinedButton(
-            onPressed: () {
-              _savePosition();
-            },
-            child: const Text('Cool button'),
-          ),
-          Text(gps_latitude.toString()),
-          Text(gps_longitude.toString())
-        ],
+          child: Padding(
+        padding: const EdgeInsets.all(32.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            const Spacer(
+              flex: 3,
+            ),
+            const Icon(Icons.satellite),
+            const SizedBox(
+              child: Text(
+                'Allow your location',
+                style: TextStyle(fontSize: 30),
+              ),
+            ),
+            const Text(
+              'We will need your location to\nfind restaurants near you.',
+              style: TextStyle(),
+              textAlign: TextAlign.center,
+            ),
+            Spacer(),
+            OutlinedButton(
+              onPressed: () {
+                //_determinePosition();
+              },
+              child: const Text('Allow location'),
+            ),
+            OutlinedButton(
+              onPressed: () {},
+              child: const Text('Skip'),
+            ),
+            OutlinedButton(
+              onPressed: () {
+                _savePosition();
+              },
+              child: const Text('Cool button'),
+            ),
+            Spacer(),
+            Text(gps_latitude.toString() + ", " + gps_longitude.toString()),
+            Spacer(
+              flex: 2,
+            ),
+          ],
+        ),
       )),
     );
   }

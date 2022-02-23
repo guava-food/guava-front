@@ -30,6 +30,7 @@ dependencies:
   flutter:
     sdk: flutter
   geolocator: ^8.2.0
+  material_design_icons_flutter: 5.0.6595
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -64,6 +65,7 @@ flutter:
   #   - images/a_dot_ham.jpeg
   assets:
     - assets/images/logo.png
+  
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
