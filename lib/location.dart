@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 
@@ -86,7 +84,9 @@ class _LocationPageState extends State<LocationPage> {
             child: const Text('Allow location'),
           ),
           OutlinedButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pushNamed(context, '/geocode');
+            },
             child: const Text('Skip'),
           ),
           OutlinedButton(

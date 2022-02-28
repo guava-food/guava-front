@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'location.dart';
+import 'geocode.dart';
 
 void main() {
   runApp(const MyApp());
@@ -21,6 +22,10 @@ class MyApp extends StatelessWidget {
         // When navigating to the "/second" route, build the SecondScreen widget.
         '/location': (BuildContext context) => const LocationPage(
               title: "Location",
+            ),
+        // When navigating to the "/second" route, build the SecondScreen widget.
+        '/geocode': (BuildContext context) => const GeocodePage(
+              title: "Geocode",
             ),
       },
     );
