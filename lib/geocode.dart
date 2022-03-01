@@ -16,8 +16,9 @@ class _GeocodePageState extends State<GeocodePage> {
   final myController = TextEditingController();
 
   void _savelocation() async {
-    List<Location> locations =
-        await locationFromAddress("1201 W University Dr, Edinburg");
+    String formText = myController.text.toString();
+
+    List<Location> locations = await locationFromAddress(formText);
     setState(() {
       gps_latitude = locations[0].latitude.toDouble();
       gps_longitude = locations[0].longitude.toDouble();
