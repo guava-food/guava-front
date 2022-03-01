@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:geocoding/geocoding.dart';
 
 class GeocodePage extends StatefulWidget {
   const GeocodePage({Key? key, required this.title}) : super(key: key);
@@ -10,18 +11,48 @@ class GeocodePage extends StatefulWidget {
 }
 
 class _GeocodePageState extends State<GeocodePage> {
+  double gps_latitude = -1.11;
+  double gps_longitude = -1.11;
+  final myController = TextEditingController();
+
+  void _savelocation() async {
+    List<Location> locations =
+        await locationFromAddress("1201 W University Dr, Edinburg");
+    setState(() {
+      gps_latitude = locations[0].latitude.toDouble();
+      gps_longitude = locations[0].longitude.toDouble();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Welcome to Flutter',
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Welcome to Flutter'),
-        ),
-        body: const Center(
-          child: Text('Hello World'),
-        ),
-      ),
+    return Scaffold(
+      body: Center(
+          child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Text(gps_latitude.toString() + ", " + gps_longitude.toString()),
+          TextFormField(
+            autocorrect: false,
+            controller: myController,
+            decoration: const InputDecoration(
+              labelText: 'Location',
+            ),
+            validator: (String? value) {
+              if (value == null || value.isEmpty) {
+                return 'Please enter some text';
+              }
+              return null;
+            },
+          ),
+          OutlinedButton(
+            onPressed: () {
+              _savelocation();
+            },
+            child: const Text('Cool button'),
+          ),
+        ],
+      )),
     );
   }
 }
