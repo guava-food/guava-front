@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 
@@ -13,6 +15,7 @@ class LocationPage extends StatefulWidget {
 class _LocationPageState extends State<LocationPage> {
   double gps_latitude = -1.11;
   double gps_longitude = -1.11;
+  bool _locationSuccess = false;
 
   /// Determine the current position of the device.
   ///
@@ -52,7 +55,7 @@ class _LocationPageState extends State<LocationPage> {
 
     // When we reach here, permissions are granted and we can
     // continue accessing the position of the device.
-    print("succssfully allowed");
+    _locationSuccess = true;
     return await Geolocator.getCurrentPosition();
   }
 
@@ -72,31 +75,70 @@ class _LocationPageState extends State<LocationPage> {
           child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Text(
+          const Icon(
+            Icons.pin_drop_sharp,
+            size: 100,
+            color: Color.fromARGB(255, 241, 93, 164),
+          ),
+          const Text(
             'Allow your location',
             style: TextStyle(fontSize: 24),
           ),
-          Text('We will need your location to find restaurants near you.'),
-          OutlinedButton(
-            onPressed: () {
-              //_determinePosition();
-            },
-            child: const Text('Allow location'),
+          const SizedBox(height: 5),
+          const Text(
+              'We will need your location to find restaurants near you.'),
+          const SizedBox(height: 10),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const SizedBox(height: 10),
+              SizedBox(
+                width: 200.0,
+                height: 30.0,
+                child: OutlinedButton(
+                  onPressed: () {
+                    _savePosition();
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text('Allow location'),
+                      SizedBox(
+                        width: 2,
+                      ),
+                      if (_locationSuccess)
+                        Icon(
+                          Icons.check,
+                          size: 15,
+                          color: Color.fromARGB(255, 94, 184, 62),
+                        )
+                    ],
+                  ),
+                ),
+              ),
+              const SizedBox(height: 10),
+              SizedBox(
+                width: 200.0,
+                height: 30.0,
+                child: OutlinedButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/geocode');
+                  },
+                  child: const Text('Skip'),
+                ),
+              ),
+              const SizedBox(
+                height: 30,
+              ),
+              SizedBox(
+                width: 200.0,
+                height: 30.0,
+                child: Text(
+                    gps_latitude.toString() + ", " + gps_longitude.toString(),
+                    textAlign: TextAlign.center),
+              )
+            ],
           ),
-          OutlinedButton(
-            onPressed: () {
-              Navigator.pushNamed(context, '/geocode');
-            },
-            child: const Text('Skip'),
-          ),
-          OutlinedButton(
-            onPressed: () {
-              _savePosition();
-            },
-            child: const Text('Cool button'),
-          ),
-          Text(gps_latitude.toString()),
-          Text(gps_longitude.toString())
         ],
       )),
     );
