@@ -1,7 +1,4 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
 
 class StepperPage extends StatefulWidget {
   const StepperPage({Key? key, required this.title}) : super(key: key);
@@ -20,7 +17,7 @@ class _StepperPageState extends State<StepperPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text("data"),
+            const Text("data"),
             Stepper(steps: <Step>[
               Step(
                 title: const Text('Step 1 title'),

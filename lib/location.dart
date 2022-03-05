@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 
@@ -13,8 +11,8 @@ class LocationPage extends StatefulWidget {
 }
 
 class _LocationPageState extends State<LocationPage> {
-  double gps_latitude = -1.11;
-  double gps_longitude = -1.11;
+  double gpsLatitude = -1.11;
+  double gpsLongitude = -1.11;
   bool _locationSuccess = false;
 
   /// Determine the current position of the device.
@@ -63,8 +61,8 @@ class _LocationPageState extends State<LocationPage> {
     Position position = await _determinePosition();
 
     setState(() {
-      gps_latitude = position.latitude.toDouble();
-      gps_longitude = position.longitude.toDouble();
+      gpsLatitude = position.latitude.toDouble();
+      gpsLongitude = position.longitude.toDouble();
     });
   }
 
@@ -103,11 +101,11 @@ class _LocationPageState extends State<LocationPage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       const Text('Allow location'),
-                      SizedBox(
+                      const SizedBox(
                         width: 2,
                       ),
                       if (_locationSuccess)
-                        Icon(
+                        const Icon(
                           Icons.check,
                           size: 15,
                           color: Color.fromARGB(255, 94, 184, 62),
@@ -134,7 +132,7 @@ class _LocationPageState extends State<LocationPage> {
                 width: 200.0,
                 height: 30.0,
                 child: Text(
-                    gps_latitude.toString() + ", " + gps_longitude.toString(),
+                    gpsLatitude.toString() + ", " + gpsLongitude.toString(),
                     textAlign: TextAlign.center),
               )
             ],

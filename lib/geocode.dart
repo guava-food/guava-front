@@ -11,8 +11,8 @@ class GeocodePage extends StatefulWidget {
 }
 
 class _GeocodePageState extends State<GeocodePage> {
-  double gps_latitude = -1.11;
-  double gps_longitude = -1.11;
+  double gpsLatitude = -1.11;
+  double gpsLongitude = -1.11;
   final myController = TextEditingController();
 
   void _savelocation() async {
@@ -20,8 +20,8 @@ class _GeocodePageState extends State<GeocodePage> {
 
     List<Location> locations = await locationFromAddress(formText);
     setState(() {
-      gps_latitude = locations[0].latitude.toDouble();
-      gps_longitude = locations[0].longitude.toDouble();
+      gpsLatitude = locations[0].latitude.toDouble();
+      gpsLongitude = locations[0].longitude.toDouble();
     });
   }
 
@@ -44,7 +44,7 @@ class _GeocodePageState extends State<GeocodePage> {
               style: TextStyle(fontSize: 24),
             ),
             const SizedBox(height: 5),
-            Text("Enter any location here."),
+            const Text("Enter any location here."),
             TextFormField(
               autocorrect: false,
               controller: myController,
@@ -65,13 +65,12 @@ class _GeocodePageState extends State<GeocodePage> {
               child: OutlinedButton(
                 onPressed: () {
                   _savelocation();
-                  Navigator.pushNamed(context, '/stepper');
                 },
                 child: const Text('Find me here'),
               ),
             ),
             const SizedBox(height: 10),
-            Text(gps_latitude.toString() + ", " + gps_longitude.toString()),
+            Text(gpsLatitude.toString() + ", " + gpsLongitude.toString()),
           ],
         ),
       )),
