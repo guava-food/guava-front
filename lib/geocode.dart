@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
+import 'data_files/gua_globals.dart' as gua_globals;
+import 'confirm_location.dart';
 
 class GeocodePage extends StatefulWidget {
   const GeocodePage({Key? key, required this.title}) : super(key: key);
@@ -11,19 +13,27 @@ class GeocodePage extends StatefulWidget {
 }
 
 class _GeocodePageState extends State<GeocodePage> {
-  double gpsLatitude = -1.11;
-  double gpsLongitude = -1.11;
   final myController = TextEditingController();
 
   void _savelocation() async {
     String formText = myController.text.toString();
 
     List<Location> locations = await locationFromAddress(formText);
-    setState(() {
-      gpsLatitude = locations[0].latitude.toDouble();
-      gpsLongitude = locations[0].longitude.toDouble();
-    });
+    gua_globals.gpsLatitude = locations[0].latitude.toDouble();
+    gua_globals.gpsLongitude = locations[0].longitude.toDouble();
+
+    List<Placemark> placemarks = await placemarkFromCoordinates(
+        gua_globals.gpsLatitude, gua_globals.gpsLongitude);
+    gua_globals.cityName = placemarks[0].locality.toString();
+    gua_globals.stateName = placemarks[0].administrativeArea.toString();
+    gua_globals.countryName = placemarks[0].country.toString();
+    gua_globals.everything = placemarks[0].toString();
+
+    setState(() {});
+    locationConfirmDialog(context);
   }
+
+  void _formatLatLong() async {}
 
   @override
   Widget build(BuildContext context) {
@@ -65,12 +75,17 @@ class _GeocodePageState extends State<GeocodePage> {
               child: OutlinedButton(
                 onPressed: () {
                   _savelocation();
+                  _formatLatLong();
                 },
                 child: const Text('Find me here'),
               ),
             ),
             const SizedBox(height: 10),
-            Text(gpsLatitude.toString() + ", " + gpsLongitude.toString()),
+            Text(gua_globals.gpsLatitude.toString() +
+                ", " +
+                gua_globals.gpsLongitude.toString()),
+            const SizedBox(height: 10),
+            Text(gua_globals.cityName + ", " + gua_globals.stateName),
           ],
         ),
       )),

@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:geocoding/geocoding.dart';
+import 'data_files/gua_globals.dart' as gua_globals;
+import 'confirm_location.dart';
 
 class StepperPage extends StatefulWidget {
   const StepperPage({Key? key, required this.title}) : super(key: key);
@@ -14,25 +17,10 @@ class _StepperPageState extends State<StepperPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text("data"),
-            Stepper(steps: <Step>[
-              Step(
-                title: const Text('Step 1 title'),
-                content: Container(
-                    alignment: Alignment.centerLeft,
-                    child: const Text('Content for Step 1')),
-              ),
-              const Step(
-                title: Text('Step 2 title'),
-                content: Text('Content for Step 2'),
-              ),
-            ]),
-          ],
-        ),
-      ),
+          child: Padding(
+        padding: const EdgeInsets.all(32.0),
+        child: Column(),
+      )),
     );
   }
 }

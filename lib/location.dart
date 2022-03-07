@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+import 'data_files/gua_globals.dart' as gua_globals;
 
 class LocationPage extends StatefulWidget {
   const LocationPage({Key? key, required this.title}) : super(key: key);
@@ -11,8 +12,6 @@ class LocationPage extends StatefulWidget {
 }
 
 class _LocationPageState extends State<LocationPage> {
-  double gpsLatitude = -1.11;
-  double gpsLongitude = -1.11;
   bool _locationSuccess = false;
 
   /// Determine the current position of the device.
@@ -47,6 +46,7 @@ class _LocationPageState extends State<LocationPage> {
 
     if (permission == LocationPermission.deniedForever) {
       // Permissions are denied forever, handle appropriately.
+      Navigator.pushNamed(context, '/geocode');
       return Future.error(
           'Location permissions are permanently denied, we cannot request permissions.');
     }
@@ -61,8 +61,8 @@ class _LocationPageState extends State<LocationPage> {
     Position position = await _determinePosition();
 
     setState(() {
-      gpsLatitude = position.latitude.toDouble();
-      gpsLongitude = position.longitude.toDouble();
+      gua_globals.gpsLatitude = position.latitude.toDouble();
+      gua_globals.gpsLongitude = position.longitude.toDouble();
     });
   }
 
@@ -132,7 +132,9 @@ class _LocationPageState extends State<LocationPage> {
                 width: 200.0,
                 height: 30.0,
                 child: Text(
-                    gpsLatitude.toString() + ", " + gpsLongitude.toString(),
+                    gua_globals.gpsLatitude.toString() +
+                        ", " +
+                        gua_globals.gpsLongitude.toString(),
                     textAlign: TextAlign.center),
               )
             ],

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:guava_frontend/stepper.dart';
 import 'location.dart';
 import 'geocode.dart';
+import 'data_files/gua_globals.dart' as gua_globals;
 
 void main() {
   runApp(const MyApp());
