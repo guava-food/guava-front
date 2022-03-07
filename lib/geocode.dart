@@ -18,19 +18,21 @@ class _GeocodePageState extends State<GeocodePage> {
   void _savelocation() async {
     String formText = myController.text.toString();
 
-    List<Location> locations = await locationFromAddress(formText);
-    gua_globals.gpsLatitude = locations[0].latitude.toDouble();
-    gua_globals.gpsLongitude = locations[0].longitude.toDouble();
+    if (formText.isNotEmpty) {
+      List<Location> locations = await locationFromAddress(formText);
+      gua_globals.gpsLatitude = locations[0].latitude.toDouble();
+      gua_globals.gpsLongitude = locations[0].longitude.toDouble();
 
-    List<Placemark> placemarks = await placemarkFromCoordinates(
-        gua_globals.gpsLatitude, gua_globals.gpsLongitude);
-    gua_globals.cityName = placemarks[0].locality.toString();
-    gua_globals.stateName = placemarks[0].administrativeArea.toString();
-    gua_globals.countryName = placemarks[0].country.toString();
-    gua_globals.everything = placemarks[0].toString();
+      List<Placemark> placemarks = await placemarkFromCoordinates(
+          gua_globals.gpsLatitude, gua_globals.gpsLongitude);
+      gua_globals.cityName = placemarks[0].locality.toString();
+      gua_globals.stateName = placemarks[0].administrativeArea.toString();
+      gua_globals.countryName = placemarks[0].country.toString();
+      gua_globals.everything = placemarks[0].toString();
 
-    setState(() {});
-    locationConfirmDialog(context);
+      setState(() {});
+      locationConfirmDialog(context);
+    }
   }
 
   void _formatLatLong() async {}

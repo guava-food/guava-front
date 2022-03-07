@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:geocoding/geocoding.dart';
 import 'data_files/gua_globals.dart' as gua_globals;
 
 class LocationPage extends StatefulWidget {
@@ -60,10 +61,17 @@ class _LocationPageState extends State<LocationPage> {
   void _savePosition() async {
     Position position = await _determinePosition();
 
-    setState(() {
-      gua_globals.gpsLatitude = position.latitude.toDouble();
-      gua_globals.gpsLongitude = position.longitude.toDouble();
-    });
+    gua_globals.gpsLatitude = position.latitude.toDouble();
+    gua_globals.gpsLongitude = position.longitude.toDouble();
+
+    List<Placemark> placemarks = await placemarkFromCoordinates(
+        gua_globals.gpsLatitude, gua_globals.gpsLongitude);
+    gua_globals.cityName = placemarks[0].locality.toString();
+    gua_globals.stateName = placemarks[0].administrativeArea.toString();
+    gua_globals.countryName = placemarks[0].country.toString();
+    gua_globals.everything = placemarks[0].toString();
+
+    setState(() {});
   }
 
   @override
