@@ -11,6 +11,12 @@ class StepperPage extends StatefulWidget {
 }
 
 class _StepperPageState extends State<StepperPage> {
+  void _cuisineSelect() {
+    keywords.foodCat = keywords.foodCat + "Chinese";
+    setState(() {});
+  }
+
+  String cuisineValue = "Any Cuisine";
   int _index = 0;
   @override
   Widget build(BuildContext context) {
@@ -47,7 +53,52 @@ class _StepperPageState extends State<StepperPage> {
                     title: const Text('Cuisines'),
                     content: Container(
                         alignment: Alignment.centerLeft,
-                        child: const Text('Content for Step 1')),
+                        child: Column(
+                          children: [
+                            Text(keywords.foodCat),
+                            DropdownButton(
+                              value: cuisineValue,
+                              icon: const Icon(Icons.arrow_downward),
+                              elevation: 16,
+                              style: const TextStyle(color: Colors.black),
+                              underline: Container(
+                                height: 2,
+                                color: Colors.black,
+                              ),
+                              onChanged: (String? newValue) {
+                                setState(() {
+                                  cuisineValue = newValue!;
+                                  keywords.foodCat = cuisineValue;
+                                  if (keywords.foodCat == "Any Cuisine") {
+                                    keywords.foodCat = "";
+                                  }
+                                });
+                              },
+                              items: <String>[
+                                'Any Cuisine',
+                                'American',
+                                'Barbecue',
+                                'Chinese',
+                                'French',
+                                'Hamburger',
+                                'Indian',
+                                'Italian',
+                                'Japanese',
+                                'Mexican',
+                                'Pizza',
+                                'Seafood',
+                                'Steak',
+                                'Sushi',
+                                'Thai'
+                              ].map<DropdownMenuItem<String>>((String value) {
+                                return DropdownMenuItem<String>(
+                                  value: value,
+                                  child: Text(value),
+                                );
+                              }).toList(),
+                            )
+                          ],
+                        )),
                   ),
                   Step(
                     title: const Text('Rating'),
