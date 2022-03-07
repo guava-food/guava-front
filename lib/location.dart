@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
+import 'confirm_location.dart';
 import 'data_files/gua_globals.dart' as gua_globals;
 
 class LocationPage extends StatefulWidget {
@@ -72,6 +73,9 @@ class _LocationPageState extends State<LocationPage> {
     gua_globals.everything = placemarks[0].toString();
 
     setState(() {});
+
+    await Future.delayed(const Duration(seconds: 2));
+    locationConfirmDialog(context);
   }
 
   @override

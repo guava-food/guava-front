@@ -30,7 +30,7 @@ class _StepperPageState extends State<StepperPage> {
                   }
                 },
                 onStepContinue: () {
-                  if (_index <= 0) {
+                  if (_index <= 3) {
                     setState(() {
                       _index += 1;
                     });
@@ -59,6 +59,18 @@ class _StepperPageState extends State<StepperPage> {
                     content: Container(
                         alignment: Alignment.centerLeft,
                         child: const Text('Content for Step 3')),
+                  ),
+                  Step(
+                    title: Text('Step 4 title'),
+                    content: Container(
+                        alignment: Alignment.centerLeft,
+                        child: const Text('Content for Step 4')),
+                  ),
+                  Step(
+                    title: Text('Step 5 title'),
+                    content: Container(
+                        alignment: Alignment.centerLeft,
+                        child: const Text('Content for Step 4')),
                   ),
                 ])
           ],
