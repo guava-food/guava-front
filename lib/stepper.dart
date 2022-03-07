@@ -49,25 +49,25 @@ class _StepperPageState extends State<StepperPage> {
                         child: const Text('Content for Step 1')),
                   ),
                   Step(
-                    title: Text('Step 2 title'),
+                    title: const Text('Step 2 title'),
                     content: Container(
                         alignment: Alignment.centerLeft,
                         child: const Text('Content for Step 2')),
                   ),
                   Step(
-                    title: Text('Step 3 title'),
+                    title: const Text('Step 3 title'),
                     content: Container(
                         alignment: Alignment.centerLeft,
                         child: const Text('Content for Step 3')),
                   ),
                   Step(
-                    title: Text('Step 4 title'),
+                    title: const Text('Step 4 title'),
                     content: Container(
                         alignment: Alignment.centerLeft,
                         child: const Text('Content for Step 4')),
                   ),
                   Step(
-                    title: Text('Step 5 title'),
+                    title: const Text('Step 5 title'),
                     content: Container(
                         alignment: Alignment.centerLeft,
                         child: const Text('Content for Step 4')),
