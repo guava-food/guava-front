@@ -42,7 +42,7 @@ class _GeocodePageState extends State<GeocodePage> {
     return Scaffold(
       body: Center(
           child: Padding(
-        padding: const EdgeInsets.all(32.0),
+        padding: const EdgeInsets.all(48.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
