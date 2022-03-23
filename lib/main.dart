@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:guava_frontend/stepper.dart';
+import 'explore_page.dart';
 import 'location.dart';
 import 'geocode.dart';
 
@@ -33,6 +34,7 @@ class MyApp extends StatelessWidget {
         '/stepper': (BuildContext context) => const StepperPage(
               title: "Stepper",
             ),
+        '/explore': (BuildContext context) => ExplorePage()
       },
     );
   }

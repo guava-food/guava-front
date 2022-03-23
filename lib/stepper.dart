@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'data_files/gua_search_keywords.dart' as keywords;
 
@@ -27,6 +28,16 @@ class _StepperPageState extends State<StepperPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            SizedBox(
+              width: 200.0,
+              height: 30.0,
+              child: OutlinedButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, '/explore');
+                },
+                child: const Text('Find me here'),
+              ),
+            ),
             Stepper(
                 currentStep: _index,
                 onStepCancel: () {
