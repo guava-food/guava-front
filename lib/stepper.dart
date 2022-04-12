@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'data_files/gua_search_keywords.dart' as keywords;
@@ -18,6 +20,7 @@ class _StepperPageState extends State<StepperPage> {
   }
 
   String cuisineValue = "Any Cuisine";
+  double priceValue = 1;
   int _index = 0;
   @override
   Widget build(BuildContext context) {
@@ -127,7 +130,16 @@ class _StepperPageState extends State<StepperPage> {
                     title: const Text('Price'),
                     content: Container(
                         alignment: Alignment.centerLeft,
-                        child: const Text('to be implemented.')),
+                        child: Column(
+                          children: [
+                            Slider(
+                                divisions: 5,
+                                value: priceValue,
+                                onChanged: (double value) {
+                                  priceValue = value;
+                                })
+                          ],
+                        )),
                   ),
                   Step(
                     title: const Text('Open now'),
