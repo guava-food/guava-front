@@ -19,9 +19,45 @@ class _StepperPageState extends State<StepperPage> {
     setState(() {});
   }
 
+  String _returnDollars() {
+    String s = "";
+    String dollar = "\$";
+    if (_currentPriceValue == 0) {
+      return "No preference";
+    }
+    for (var i = 0; i < _currentPriceValue; i++) {
+      s = s + dollar;
+    }
+    return s;
+  }
+
+  String _returnStars() {
+    String s = "";
+    String star = "⭐";
+    if (_currentRateValue == 0) {
+      return "No preference";
+    }
+    for (var i = 0; i < _currentRateValue; i++) {
+      s = s + star;
+    }
+    return s;
+  }
+
+  String _returnDistance() {
+    if (_currentDistValue == 0) {
+      return "No preference";
+    } else {
+      return _currentDistValue.round().toString() + " miles";
+    }
+  }
+
   String cuisineValue = "Any Cuisine";
-  double priceValue = 1;
+  double _currentPriceValue = 2;
+  double _currentDistValue = 1;
+  double _currentRateValue = 5;
+  bool _openNowValue = false;
   int _index = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,10 +74,11 @@ class _StepperPageState extends State<StepperPage> {
                 onPressed: () {
                   Navigator.pushNamed(context, '/explore');
                 },
-                child: const Text('Find me here'),
+                child: const Text('Demo button. Deprecate.'),
               ),
             ),
             Stepper(
+                physics: const NeverScrollableScrollPhysics(),
                 currentStep: _index,
                 onStepCancel: () {
                   if (_index > 0) {
@@ -118,26 +155,62 @@ class _StepperPageState extends State<StepperPage> {
                     title: const Text('Rating'),
                     content: Container(
                         alignment: Alignment.centerLeft,
-                        child: const Text('to be implemented.')),
+                        child: Column(
+                          children: [
+                            Text(_returnStars()),
+                            Slider(
+                              value: _currentRateValue,
+                              min: 0,
+                              max: 5,
+                              divisions: 5,
+                              onChanged: (double value) {
+                                setState(() {
+                                  _currentRateValue = value;
+                                });
+                              },
+                            ),
+                          ],
+                        )),
                   ),
                   Step(
                     title: const Text('Distance'),
                     content: Container(
                         alignment: Alignment.centerLeft,
-                        child: const Text('to be implemented.')),
+                        child: Column(
+                          children: [
+                            Text(_returnDistance()),
+                            Slider(
+                              value: _currentDistValue,
+                              min: 0,
+                              max: 25,
+                              onChanged: (double value) {
+                                setState(() {
+                                  _currentDistValue = value;
+                                });
+                              },
+                            ),
+                          ],
+                        )),
                   ),
                   Step(
-                    title: const Text('Price'),
+                    title: const Text('Price Limit'),
                     content: Container(
                         alignment: Alignment.centerLeft,
                         child: Column(
                           children: [
+                            Text(_returnDollars()),
                             Slider(
-                                divisions: 5,
-                                value: priceValue,
-                                onChanged: (double value) {
-                                  priceValue = value;
-                                })
+                              value: _currentPriceValue,
+                              min: 0,
+                              max: 4,
+                              divisions: 4,
+                              label: _returnDollars(),
+                              onChanged: (double value) {
+                                setState(() {
+                                  _currentPriceValue = value;
+                                });
+                              },
+                            ),
                           ],
                         )),
                   ),
@@ -145,7 +218,16 @@ class _StepperPageState extends State<StepperPage> {
                     title: const Text('Open now'),
                     content: Container(
                         alignment: Alignment.centerLeft,
-                        child: const Text('to be implemented.')),
+                        child: SwitchListTile(
+                          title: const Text('Open now'),
+                          value: _openNowValue,
+                          onChanged: (bool value) {
+                            setState(() {
+                              _openNowValue = value;
+                            });
+                          },
+                          secondary: const Icon(Icons.lock_clock),
+                        )),
                   ),
                 ])
           ],
