@@ -1,3 +1,4 @@
+Map<String, dynamic> yelp_json = {};
 const List explore_json = [
   {
     "img": "assets/images/food/pexels-photo-704569.jpeg",

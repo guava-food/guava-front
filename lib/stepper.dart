@@ -1,8 +1,21 @@
 import 'dart:ffi';
+import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'data_files/gua_search_keywords.dart' as keywords;
+import 'requester.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert' as convert;
+import 'data_files/explore_json.dart';
+import 'data_files/gua_globals.dart';
+import 'restaurant_list.dart' as rl;
+
+Map<String, String> queryParameters = {
+  'term': 'food',
+  'latitude': gpsLatitude.toString(),
+  'longitude': gpsLongitude.toString(),
+};
 
 class StepperPage extends StatefulWidget {
   const StepperPage({Key? key, required this.title}) : super(key: key);
@@ -14,6 +27,33 @@ class StepperPage extends StatefulWidget {
 }
 
 class _StepperPageState extends State<StepperPage> {
+  void _yelpRequest() async {
+    // This example uses the Google Books API to search for books about http.
+    // https://developers.google.com/books/docs/overview
+    var url =
+        Uri.https("api.yelp.com", "/v3/businesses/search", queryParameters);
+    var api =
+        "CSPBb5_jfbSmHLPjALQ2zoIgKlP2VlSTa6uJJOw3icdkfgnBAbKGypM2X2eatNaohl7EPHDbVD3t0LNXYv1SIvNisq76WkFvTVHGb8LoYuhZaDzjMWoCYMnYBJtMYnYx";
+
+    // print(url);
+
+    // Await the http get response, then decode the json-formatted response.
+    var response =
+        await http.get(url, headers: {'Authorization': 'Bearer ' + api});
+    if (response.statusCode == 200) {
+      print(response.statusCode);
+      var jsonResponse =
+          convert.jsonDecode(response.body) as Map<String, dynamic>;
+
+      yelp_json = convert.jsonDecode(response.body) as Map<String, dynamic>;
+
+      Navigator.pushNamed(context, '/list');
+    } else {
+      print(
+          'Request failed with status: ${response.statusCode}. \n  ${response.body}');
+    }
+  }
+
   void _cuisineSelect() {
     keywords.foodCat = keywords.foodCat + "Chinese";
     setState(() {});
@@ -75,6 +115,16 @@ class _StepperPageState extends State<StepperPage> {
                   Navigator.pushNamed(context, '/explore');
                 },
                 child: const Text('Demo button. Deprecate.'),
+              ),
+            ),
+            SizedBox(
+              width: 200.0,
+              height: 30.0,
+              child: OutlinedButton(
+                onPressed: () {
+                  _yelpRequest();
+                },
+                child: const Text('request test button'),
               ),
             ),
             Stepper(
@@ -151,27 +201,28 @@ class _StepperPageState extends State<StepperPage> {
                           ],
                         )),
                   ),
-                  Step(
-                    title: const Text('Rating'),
-                    content: Container(
-                        alignment: Alignment.centerLeft,
-                        child: Column(
-                          children: [
-                            Text(_returnStars()),
-                            Slider(
-                              value: _currentRateValue,
-                              min: 0,
-                              max: 5,
-                              divisions: 5,
-                              onChanged: (double value) {
-                                setState(() {
-                                  _currentRateValue = value;
-                                });
-                              },
-                            ),
-                          ],
-                        )),
-                  ),
+                  /*!!! WILL CHANGE TO SORT BY best_match, rating, review_count or distance !!! */
+                  // Step(
+                  //   title: const Text('Rating'),
+                  //   content: Container(
+                  //       alignment: Alignment.centerLeft,
+                  //       child: Column(
+                  //         children: [
+                  //           Text(_returnStars()),
+                  //           Slider(
+                  //             value: _currentRateValue,
+                  //             min: 0,
+                  //             max: 5,
+                  //             divisions: 5,
+                  //             onChanged: (double value) {
+                  //               setState(() {
+                  //                 _currentRateValue = value;
+                  //               });
+                  //             },
+                  //           ),
+                  //         ],
+                  //       )),
+                  // ),
                   Step(
                     title: const Text('Distance'),
                     content: Container(

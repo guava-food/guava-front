@@ -4,6 +4,7 @@ import 'package:guava_frontend/stepper.dart';
 import 'explore_page.dart';
 import 'location.dart';
 import 'geocode.dart';
+import 'restaurant_list.dart';
 
 void main() {
   runApp(const MyApp());
@@ -33,6 +34,10 @@ class MyApp extends StatelessWidget {
         // When navigating to the "/second" route, build the SecondScreen widget.
         '/stepper': (BuildContext context) => const StepperPage(
               title: "Stepper",
+            ),
+        // When navigating to the "/second" route, build the SecondScreen widget.
+        '/list': (BuildContext context) => const RestaurantPage(
+              title: "List",
             ),
         '/explore': (BuildContext context) => ExplorePage()
       },

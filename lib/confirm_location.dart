@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'data_files/gua_globals.dart' as gua_globals;
+import 'data_files/explore_json.dart';
 
 locationConfirmDialog(BuildContext context) {
   // set up the buttons
@@ -7,12 +8,14 @@ locationConfirmDialog(BuildContext context) {
     child: const Text("Enter location"),
     onPressed: () {
       Navigator.pushReplacementNamed(context, '/geocode');
+      yelp_json = {};
     },
   );
   Widget continueButton = TextButton(
     child: const Text("Continue"),
     onPressed: () {
       Navigator.pushNamed(context, '/stepper');
+      yelp_json = {};
     },
   );
 
