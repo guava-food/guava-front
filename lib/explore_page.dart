@@ -19,7 +19,7 @@ class _ExplorePageState extends State<ExplorePage>
     super.initState();
     setState(() {
       itemsTemp = explore_json;
-      itemLength = explore_json.length;
+      itemLength = yelp_json["businesses"].length;
     });
   }
 
@@ -40,7 +40,7 @@ class _ExplorePageState extends State<ExplorePage>
       child: Container(
         height: size.height,
         child: TinderSwapCard(
-          totalNum: itemLength,
+          totalNum: yelp_json["businesses"].length,
           maxWidth: MediaQuery.of(context).size.width,
           maxHeight: MediaQuery.of(context).size.height * 0.75,
           minWidth: MediaQuery.of(context).size.width * 0.75,
@@ -63,7 +63,8 @@ class _ExplorePageState extends State<ExplorePage>
                     height: size.height,
                     decoration: BoxDecoration(
                       image: DecorationImage(
-                          image: AssetImage(itemsTemp[index]['img']),
+                          image: NetworkImage(
+                              yelp_json["businesses"][index]["image_url"]),
                           fit: BoxFit.cover),
                     ),
                   ),
@@ -93,7 +94,8 @@ class _ExplorePageState extends State<ExplorePage>
                                     Row(
                                       children: [
                                         Text(
-                                          itemsTemp[index]['name'],
+                                          yelp_json["businesses"][index]
+                                              ["name"],
                                           style: TextStyle(
                                               color: Colors.white,
                                               fontSize: 24,
@@ -133,7 +135,7 @@ class _ExplorePageState extends State<ExplorePage>
                                     ),
                                     Row(
                                       children: List.generate(
-                                          itemsTemp[index]['likes'].length,
+                                          yelp_json["businesses"].length,
                                           (indexLikes) {
                                         if (indexLikes == 0) {
                                           return Padding(
@@ -154,12 +156,12 @@ class _ExplorePageState extends State<ExplorePage>
                                                     bottom: 3,
                                                     left: 10,
                                                     right: 10),
-                                                child: Text(
-                                                  itemsTemp[index]['likes']
-                                                      [indexLikes],
-                                                  style: TextStyle(
-                                                      color: Colors.white),
-                                                ),
+                                                // child: Text(
+                                                //   itemsTemp[index]['likes']
+                                                //       [indexLikes],
+                                                //   style: TextStyle(
+                                                //       color: Colors.white),
+                                                // ),
                                               ),
                                             ),
                                           );
@@ -179,12 +181,12 @@ class _ExplorePageState extends State<ExplorePage>
                                                   bottom: 3,
                                                   left: 10,
                                                   right: 10),
-                                              child: Text(
-                                                itemsTemp[index]['likes']
-                                                    [indexLikes],
-                                                style: TextStyle(
-                                                    color: Colors.white),
-                                              ),
+                                              // child: Text(
+                                              //   itemsTemp[index]['likes']
+                                              //       [indexLikes],
+                                              //   style: TextStyle(
+                                              //       color: Colors.white),
+                                              // ),
                                             ),
                                           ),
                                         );
